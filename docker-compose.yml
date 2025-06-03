@@ -1,0 +1,52 @@
+version: '3.9'
+
+services:
+  api:
+    build:
+      context: . # Directorio donde se encuentra el Dockerfile
+      dockerfile: Dockerfile # Nombre del Dockerfile (por si lo llamas diferente)
+    container_name: tesis_sat_api # Nombre personalizado para el contenedor de la API
+    command: uvicorn app.main:app --host 0.0.0.0 --port 8000 --reload # Comando para desarrollo
+    volumes:
+      # Monta el código de tu aplicación local en el contenedor para desarrollo en tiempo real
+      - ./app:/app/app
+      # Si tienes una carpeta 'ml' que quieres montar para desarrollo:
+      # - ./ml:/app/ml
+    ports:
+      # Mapea el puerto 8000 del host al puerto 8000 del contenedor
+      - "8000:8000"
+    env_file:
+      # Carga variables de entorno desde el archivo .env
+      - .env
+    depends_on:
+      # Asegura que el servicio 'db' se inicie antes que 'api'
+      - db
+    networks:
+      # Conecta este servicio a la red definida abajo
+      - tesis_sat_network
+
+  db:
+    image: postgres:15 # Usa la imagen oficial de PostgreSQL versión 15
+    container_name: tesis_sat_postgres_db # Nombre personalizado
+    env_file:
+      # Carga variables de entorno para la configuración de PostgreSQL desde .env
+      # (POSTGRES_USER, POSTGRES_PASSWORD, POSTGRES_DB)
+      - .env
+    volumes:
+      # Volumen nombrado para persistir los datos de la base de datos PostgreSQL
+      - postgres_data_tesis_sat:/var/lib/postgresql/data
+    ports:
+      # Mapea el puerto 5433 de tu máquina host al puerto 5432 del contenedor PostgreSQL
+      # Puedes cambiar el 5433 si ese puerto ya está en uso en tu máquina
+      - "5433:5432"
+    networks:
+      - tesis_sat_network
+
+# Define los volúmenes nombrados
+volumes:
+  postgres_data_tesis_sat: # El nombre del volumen debe coincidir con el usado en el servicio 'db'
+
+# Define la red personalizada
+networks:
+  tesis_sat_network:
+    driver: bridge # El driver bridge es el más común para redes locales de Docker

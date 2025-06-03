@@ -1,0 +1,16 @@
+fastapi
+uvicorn[standard]
+python-dotenv
+psycopg2-binary # Para PostgreSQL
+SQLAlchemy    # O el ORM de tu elección si lo usas
+# Para ML (ejemplos, ajusta según tus necesidades):
+pandas
+numpy
+scikit-learn
+# Para Frontend (si usas Dash o Streamlit y lo sirves con Python):
+plotly
+dash
+streamlit
+#Para el linting y formateo de código
+flake8
+black
