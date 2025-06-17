@@ -1,5 +1,5 @@
 # Usa una imagen oficial de Python como base
-FROM python:3.10-slim-bullseye
+FROM python:3.10-slim
 
 # Actualiza los paquetes del sistema para reducir vulnerabilidades
 RUN apt-get update && apt-get upgrade -y && apt-get clean && rm -rf /var/lib/apt/lists/*
@@ -31,7 +31,7 @@ COPY ./app /app/app
 # COPY ./ml /app/ml
 
 # Expone el puerto en el que correrá tu aplicación FastAPI (Uvicorn por defecto usa 8000)
-EXPOSE 8000
+# EXPOSE 8000
 
 # Comando para ejecutar la aplicación cuando el contenedor inicie
 # Asegúrate que 'app.main:app' coincida con la ubicación de tu archivo principal
