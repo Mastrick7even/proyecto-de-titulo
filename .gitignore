@@ -82,10 +82,11 @@ venv.bak
 
 # VSCode
 .vscode/
+.pdf
 
 # Docker
 .dockerignore
-docker-compose.override.yml
+docker-compose.override.yml 
 
 # ML/Data
 # Agrega aquí archivos de datos grandes o modelos que no quieras versionar
