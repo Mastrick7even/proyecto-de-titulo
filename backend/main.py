@@ -1,7 +1,7 @@
 from fastapi import FastAPI
 from fastapi.responses import FileResponse # <<--- AÑADE ESTA IMPORTACIÓN
 import pathlib # <<--- AÑADE ESTA IMPORTACIÓN
-from backend.core.config import settingsgit
+from backend.core.config import settings
 from backend.routers import health # Importamos nuestro nuevo router
 
 
